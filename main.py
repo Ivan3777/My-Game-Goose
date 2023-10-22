@@ -43,16 +43,16 @@ player_move_up = [0, -4]
 
 def create_enemy():
     enemy = pygame.image.load('enemy.png').convert_alpha()
-    enemy_size = enemy.get_size()
-    enemy_rect = pygame.Rect(WIDTH, random.randint(0, HEIGHT-100), *enemy_size)
+    enemy_rect = pygame.Rect(WIDTH, random.randint(
+        enemy.get_height(), HEIGHT - enemy.get_height()), *enemy.get_size())
     enemy_move = [random.randint(-8, -4), 0]
     return [enemy, enemy_rect, enemy_move]
 
 
 def create_bonus():
     bonus = pygame.image.load('bonus.png').convert_alpha()
-    bonus_size = bonus.get_size()
-    bonus_rect = pygame.Rect(random.randint(300, WIDTH-300), 0, *bonus_size)
+    bonus_rect = pygame.Rect(random.randint(
+        bonus.get_width(), WIDTH - bonus.get_width()), -bonus.get_height(), *bonus.get_size())
     bonus_move = [0, random.randint(4, 8)]
     return [bonus, bonus_rect, bonus_move]
 
@@ -145,7 +145,7 @@ while playing:
     pygame.display.flip()
 
     for enemy in enemies:
-        if enemy[1].left < 0:
+        if enemy[1].right < 0:
             enemies.pop(enemies.index(enemy))
 
     for bonus in bonuses:
